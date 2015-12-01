@@ -47,6 +47,8 @@ from openerp.service.server import memory_info
 from openerp.service import security, model as service_model
 from openerp.tools.func import lazy_property
 from openerp.tools import ustr, consteq
+from service import odooSessionStore
+
 
 _logger = logging.getLogger(__name__)
 rpc_request = logging.getLogger(__name__ + '.rpc.request')
@@ -1400,7 +1402,7 @@ class Root(object):
         # Setup http sessions
         path = openerp.tools.config.session_dir
         _logger.debug('HTTP sessions stored in: %s', path)
-        return werkzeug.contrib.sessions.FilesystemSessionStore(path, session_class=OpenERPSession)
+        return odooSessionStore.OdooSessionStore(path, session_class=OpenERPSession) #FOI ALTERADo
 
     @lazy_property
     def nodb_routing_map(self):
